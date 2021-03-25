@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Ahemdabad">
+
+    <fragment
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </fragment>
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="420dp"
+        android:background="@drawable/box"
+        android:layout_marginRight="3px"
+        android:layout_marginBottom="3px"
+        android:textColor="#FF0000"
+        android:textSize="20dp"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        />
+
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="450dp"
+        android:visibility="invisible"
+        android:layout_marginBottom="3px"
+        android:layout_marginRight="3px"
+        android:background="@drawable/box"
+        android:textColor="#FF0000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hold this to view Cities"
+        android:layout_marginLeft="270dp"
+        android:layout_marginTop="700dp"
+        android:textColor="@color/black"
+
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fsavali"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:fabSize="normal"
+        android:clickable="true"
+        android:src="@drawable/ic_floatbuttonadd"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp">
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+</RelativeLayout>

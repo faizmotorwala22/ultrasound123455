@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Drainage</string>
+    <string-array name="Authority">
+        <item>Higher Authority</item>
+        <item>Town Incharge</item>
+        <item>Area Incharge</item>
+    </string-array>
+    <string-array name="Cities">
+        <item>Vadodara</item>
+        <item>Ahmedabaad</item>
+        <item>Surat</item>
+    </string-array>
+</resources>

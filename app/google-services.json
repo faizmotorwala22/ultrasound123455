@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "351571754457",
+    "project_id": "drainagee",
+    "storage_bucket": "drainagee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351571754457:android:500ef7c1fb95de26536dc8",
+        "android_client_info": {
+          "package_name": "com.example.drainage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351571754457-26iapsu06c7rhmcfdmn9s9v1lqvo3eaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYUNgJ_SQvEA0iKisGnqVGtCcbGVNY9Pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351571754457-26iapsu06c7rhmcfdmn9s9v1lqvo3eaj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

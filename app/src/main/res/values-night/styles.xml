@@ -1,0 +1,16 @@
+<resources>
+    <style name="AppTheme" parent="@android:style/Theme.Holo">
+        <!-- Customize your theme here. -->
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
+    </style>
+
+    <!-- ACTION BAR STYLES -->
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@color/white</item>
+
+    </style>
+
+
+</resources>

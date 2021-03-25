@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#ffffff"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/textView0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:textStyle="bold"
+        android:text="Welcome!!"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        android:layout_marginTop="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView2"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/map" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Login as"
+            android:fontFamily="@font/arbutus_slab"
+            android:layout_marginLeft="50dp"
+            android:textColor="@color/black"
+
+            android:textSize="27dp"/>
+
+        <Spinner
+            android:textColor="@color/black"
+            android:id="@+id/spinnner"
+            android:layout_width="150dp"
+            android:fontFamily="@font/arbutus_slab"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:textSize="27dp"></Spinner>
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/elemail"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_border"
+        android:drawableStart="@drawable/ic_baseline_mail_24"
+        android:drawablePadding="16dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/arbutus_slab"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:padding="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintWidth_percent=".8" />
+
+    <EditText
+
+        android:id="@+id/elpass"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_border"
+        android:drawableStart="@drawable/ic_baseline_lock_24"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:textColor="@color/black"
+        android:layout_marginLeft="50dp"
+        android:fontFamily="@font/arbutus_slab"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintWidth_percent=".8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forget_Password?"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:id="@+id/fpass"
+        android:layout_marginLeft="230dp"
+        app:layout_constraintHorizontal_bias=".9"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/elpass"
+        app:layout_constraintStart_toStartOf="@+id/elpass"
+        app:layout_constraintTop_toBottomOf="@+id/elpass" />
+
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/Login"
+        android:text="Login"
+        android:padding="10dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/elpass"
+        app:layout_constraintWidth_percent=".8"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/curved_button"/>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressbar"
+        android:layout_marginTop="30dp"
+        android:visibility="invisible"/>
+
+
+
+
+</LinearLayout>
