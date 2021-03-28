@@ -123,10 +123,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, cityview.class));
+               /* startActivity(new Intent(MainActivity.this, Areawise.class));
+                finish();*/
 
 
-               /* String semail = email.getText().toString();
+                String semail = email.getText().toString();
                 String spass = pass.getText().toString();
                 if (TextUtils.isEmpty(semail)) {
                     email.setError("Cannot be empty");
@@ -172,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             });
                         }
                     }
-                });*/
+                });
             }
         });
         forgetpass.setOnClickListener(new View.OnClickListener() {
@@ -234,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     }
+
 
 
 

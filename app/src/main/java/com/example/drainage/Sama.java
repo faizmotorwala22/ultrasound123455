@@ -9,7 +9,9 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,63 +41,43 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class Sama extends FragmentActivity implements OnMapReadyCallback {
     private static final float zoom = 15f;
     FloatingActionButton floatingActionButton1;
-    ArrayList<LatLng> arrayList = new ArrayList<LatLng>();
-    LatLng samaa = new LatLng(22.342811, 73.196277);
-    LatLng ganeshdeep = new LatLng(22.348078, 73.192583);
-    LatLng chandanpark = new LatLng(22.349338, 73.192819);
-    LatLng bansidhar = new LatLng(22.348733, 73.194196);
-    float water = (float) 6.6;
-     public static TextView data;
-    int Permission_Request_Code = 1;
-    String No;
-    FirebaseFirestore firebaseFirestore;
-    FirebaseAuth mAuth;
 
-    String url = "https://api.thingspeak.com/channels/1293964/fields/1.json?api_key=SPWU1EGZYVYFWWNL";
-    String str;
+    private static final String TAG = "";
+    TextView t1, t2;
+    private GoogleMap map;
+    private String name1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sama);
-        data = findViewById(R.id.text);
+
         floatingActionButton1 = findViewById(R.id.fsama);
+        t1 = findViewById(R.id.t1);
+        t2 = findViewById(R.id.t2);
+        t1.setVisibility(View.INVISIBLE);
+        t2.setVisibility(View.INVISIBLE);
 
 
         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
         supportMapFragment.getMapAsync(this);
-        arrayList.add(samaa);
-        arrayList.add(ganeshdeep);
-        arrayList.add(chandanpark);
-        arrayList.add(bansidhar);
-        mAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        Toast.makeText(this, "outside if ", Toast.LENGTH_SHORT).show();
 
-        if (water > 5.0) {
-            Toast.makeText(this, "inside if ", Toast.LENGTH_SHORT).show();
-
-            if (checkpermission(Manifest.permission.SEND_SMS)) {
-
-                fetch();
-                onsend();
-
-
-
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, Permission_Request_Code);
-                Toast.makeText(this, "permission denied" + water, Toast.LENGTH_SHORT).show();
-            }
-
-        }
 
         floatingActionButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +86,46 @@ public class Sama extends FragmentActivity implements OnMapReadyCallback {
 
             }
         });
+        final Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(200);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+
+
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+
+                                        new fetchdata1().execute();
+                                        System.out.println("first");}
+
+
+
+
+                                }, 5000);
+
+
+
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        thread.start();
+
+
     }
 
     @Override
@@ -128,62 +151,142 @@ public class Sama extends FragmentActivity implements OnMapReadyCallback {
 
         return false;
     }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        for (int i = 0; i < arrayList.size(); i++) {
-            googleMap.addMarker(new MarkerOptions().title("Sama").position(arrayList.get(i)).title("Sama"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(arrayList.get(i), zoom));
-        }
-        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                Toast.makeText(Sama.this, "Sama area", Toast.LENGTH_SHORT).show();
 
+        map = googleMap;
+        LatLng sama = new LatLng(22.342811, 73.196277);
+        googleMap.addMarker(new MarkerOptions().title("sama").position(sama));
+
+        map.addMarker(new MarkerOptions().title("sama").position(sama).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sama, zoom));
+        /*googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng point) {
+                LatLng chhanii = new LatLng(33.823083, 75.270572);
+                googleMap.addMarker(new MarkerOptions().title("Chhani").position(chhanii).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                MarkerOptions marker = new MarkerOptions().position(new LatLng(point.latitude, point.longitude)).title("Chhani");
+                //googleMap.addMarker(marker);
+                //googleMap.addMarker(new MarkerOptions().title("Chhani").position(chhanii));
+
+                new fetchdata1().execute();
+
+                System.out.println(point.latitude+"---"+ point.longitude);
             }
-        });
+        });*/
+
+
     }
 
 
-    public void onsend() {
 
-        Global global = (Global) getApplicationContext();
-        Toast.makeText(this, "" + global.getEmail(), Toast.LENGTH_SHORT).show();
-        firebaseFirestore.collection("user").document(global.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    No = task.getResult().getString("Contact");
-                    Toast.makeText(Sama.this, "contact" + No, Toast.LENGTH_SHORT).show();
+    public class fetchdata1 extends AsyncTask<Void, Void, Void> {
+        String data = "";
+        String level = "";
+        public String name, strAmount;
+        float in2;
+        int in1;
+        float in,hun;
 
-                    // Toast.makeText(global, "data"+process.execute(), Toast.LENGTH_SHORT).show();
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(No, null, "https://www.google.com/maps/search/?api=1&query=22.3578876,73.1939609", null, null);
-                } else {
-                    Toast.makeText(Sama.this, "sorry contact cant be retrived", Toast.LENGTH_SHORT).show();
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                //URL url = new URL("https://api.thingspeak.com/channels/1293964/fields/1.json?api_key=SPWU1EGZYVYFWWNL");
+                URL url = new URL("https://api.thingspeak.com/channels/1293964/feeds/last?api_key=SPWU1EGZYVYFWWNL");
+
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line = "";
+                while (line != null) {
+                    line = bufferedReader.readLine();
+                    data = data + line;
                 }
+                //JSONArray jsonArray = new JSONArray(data);
+
+                JSONObject jsonObject = new JSONObject(data);
+
+                String name = jsonObject.getString("field1");
+                name1 = name;
+                float number = Float.parseFloat(name);
+                System.out.println(number);
+                in2=number;
+
+                String strAmount = String.valueOf(number);
+                System.out.println(strAmount);
+                float hun= (float) 100.00;
+
+                try {
+                    int in1 =Integer.parseInt(name);
+                    System.out.println(in1);
+
+
+                    System.out.println(name);
+                } catch (NumberFormatException ex) { // handle your exception
+
+                }
+
+
+                //JSONArray jA = jsonObject.getJSONArray("field1");
+                //Log.d("mylog", "map");
+
+
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Sama.this, "add on failure", Toast.LENGTH_SHORT).show();
+
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            System.out.println("the value of in2"+in2);
+
+            if (in2 >= 100.00) {
+
+                t1.setVisibility(View.VISIBLE);
+                t2.setVisibility(View.VISIBLE);
+
+
+                t1.setText("OverFlow");
+                t2.setText(name1);
+                // t2.setText(Float.toString(in));
+                //t2.setText(String.format("%.03f",in));
+                t1.setTextColor(getResources().getColor(R.color.red));
+                t2.setTextColor(getResources().getColor(R.color.red));
+                LatLng chhanii = new LatLng(33.823083, 75.270572);
+                map.addMarker(new MarkerOptions().title("Chhani").position(chhanii).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
             }
 
-        });
-        Toast.makeText(global, "calling fetch", Toast.LENGTH_SHORT).show();
+            else  {
+                t1.setVisibility(View.VISIBLE);
+                t2.setVisibility(View.VISIBLE);
+                t1.setText("CONTROL");
+                t2.setText(name1);
+                t1.setTextColor(getResources().getColor(R.color.green));
+                t2.setTextColor(getResources().getColor(R.color.green));
+                // t2.setText(Float.toString(in));
+                LatLng chhanii2 = new LatLng(33.823083, 75.270572);
+                map.addMarker(new MarkerOptions().title("Chhani").position(chhanii2).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+            }
+
+        }
+
+
     }
 
 
-    public boolean checkpermission(String permission) {
-        int check = ContextCompat.checkSelfPermission(this, permission);
-        return (check == PackageManager.PERMISSION_GRANTED);
-    }
 
-
-    public void fetch() {
-            fetchdata process=new fetchdata();
-            process.execute();
-    }
 }
 
 

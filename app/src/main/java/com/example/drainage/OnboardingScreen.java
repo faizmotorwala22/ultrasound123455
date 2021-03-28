@@ -31,5 +31,6 @@ public class OnboardingScreen extends AppCompatActivity {
     public void openNewActivity(){
         Intent intent = new Intent(this, Onboarding2.class);
         startActivity(intent);
+        finish();
     }
 }
